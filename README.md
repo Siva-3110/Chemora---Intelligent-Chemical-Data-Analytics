@@ -11,7 +11,7 @@ Users can upload CSV datasets to generate instant analytics, interactive charts,
 | Backend | Django 4.2, Django REST Framework, SQLite, Pandas, ReportLab |
 | Web App | React.js, Chart.js, Axios, Modern CSS |
 | Desktop App | Python, PyQt5, Matplotlib (embedded visualization) |
-| Deployment | Render (Backend API + Frontend) |
+| Deployment | Netlify(Frontend), Render(Backend API) |
 
 ## 📸 Screenshots
 | Web Dashboard | Desktop Application |
@@ -19,7 +19,8 @@ Users can upload CSV datasets to generate instant analytics, interactive charts,
 | ![Web Dashboard](screenshots/webapp.png) | ![Desktop App](screenshots/desktopapp.png) |
 
 ## 🚀 Live Demos
-- **Web App (Render)**: https://chemora-1.onrender.com/
+- **Web App (Netlify)**: https://chemora.netlify.app/
+- **Backend API (Render)**: https://chemora.onrender.com
 - **Desktop App**: Download `main.exe` from [GitHub Releases](https://github.com/Siva-3110/Chemora/tree/master/desktop/dist) 
 
 
@@ -200,5 +201,5 @@ Pump-2,Pump,98.45,108.30,165.20
 ```
 
 ## 📝 Submission Details
-- **Repository**: [GitHub - Chemora](https://github.com/Siva-3110/Chemora)
+- **Repository**: [GitHub - Chemora](https://github.com/Siva-3110/Chemora---Intelligent-Chemical-Data-Analytics)
 - **Demo Video**: [Demo Video](https://drive.google.com/file/d/1fSfkYz-fNBJme21PgT5aso7gzwQ8E_KE/view?usp=sharing)
