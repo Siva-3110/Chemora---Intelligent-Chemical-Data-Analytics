@@ -28,7 +28,8 @@ function App() {
       const localUser = users.find(user => user.username === parsed.username);
       
       if (localUser || parsed.username === 'admin') {
-        setUser({ username: parsed.username });
+        const is_superuser = parsed.username === 'admin';
+        setUser({ username: parsed.username, is_superuser });
         setIsAuthenticated(true);
         // Set Authorization header for all users
         const authHeader = `Basic ${btoa(`${parsed.username}:${parsed.password}`)}`;
@@ -49,7 +50,8 @@ function App() {
       
       if (response.status === 200) {
         localStorage.setItem('auth', JSON.stringify(credentials));
-        setUser({ username: credentials.username });
+        const is_superuser = credentials.username === 'admin';
+        setUser({ username: credentials.username, is_superuser });
         setIsAuthenticated(true);
         setCurrentPage('dashboard');
         return { success: true };

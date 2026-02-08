@@ -12,7 +12,7 @@ function Dashboard({ user, onLogout, apiBase }) {
 
   useEffect(() => {
     loadDatasets();
-  }, [user.username]); // Reload when user changes
+  }, []);
 
   const loadDatasets = async () => {
     try {
@@ -96,9 +96,10 @@ function Dashboard({ user, onLogout, apiBase }) {
               {user.username.charAt(0).toUpperCase()}
             </div>
             <div className="user-info">
-              <h4>{user.username}</h4>
-              <p>User</p>
+                <h4>{user.username}</h4>
+                <p>{user.is_superuser ? 'Admin' : 'User'}</p>
             </div>
+
           </div>
         </div>
       </div>
