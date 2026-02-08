@@ -32,27 +32,88 @@ To test the live system, you can use these guest credentials or create a new acc
 
 ## 📂 Project Structure
 ```
-chemical_equipment_visualizer/
-├── backend/                  # Django Project Root
-│   ├── api/                  # REST API Endpoints & Logic
-│   ├── equipment_api/        # Project Settings
-│   ├── manage.py
-│   ├── requirements.txt
-│   ├── Procfile             # Render deployment
-│   └── render.yaml          # Render configuration
-├── frontend/                 # React Web Application
-│   ├── src/                  # Components (Charts, Dashboard, Tables)
+Chemora/
+├── backend/                      # Django REST API Backend
+│   ├── api/                      # REST API Application
+│   │   ├── migrations/           # Database migrations
+│   │   ├── admin.py              # Django admin configuration
+│   │   ├── models.py             # Database models (Dataset, Equipment)
+│   │   ├── serializers.py        # DRF serializers
+│   │   ├── urls.py               # API URL routing
+│   │   └── views.py              # API endpoints & PDF generation
+│   ├── equipment_api/            # Django project settings
+│   │   ├── settings.py           # Configuration (CORS, Auth, Database)
+│   │   ├── urls.py               # Main URL routing
+│   │   └── wsgi.py               # WSGI application
+│   ├── build.sh                  # Render build script (auto-creates admin)
+│   ├── db.sqlite3                # SQLite database
+│   ├── manage.py                 # Django management script
+│   ├── Procfile                  # Render deployment config
+│   ├── render.yaml               # Render service configuration
+│   ├── requirements.txt          # Python dependencies
+│   └── start.sh                  # Local startup script
+│
+├── frontend/                     # React Web Application
 │   ├── public/
-│   └── package.json
-├── desktop/                  # PyQt5 Desktop Application
-│   ├── main.py              # Entry Point
-│   ├── dist/main.exe        # Packaged Executable
-│   └── requirements.txt
-├── sample_equipment_data.csv # Sample Dataset for Testing
-├── start_backend.bat        # Quick start scripts
-├── start_frontend.bat
-├── start_desktop.bat
-└── README.md
+│   │   ├── chemora image.jpg     # Logo
+│   │   └── index.html            # HTML template
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Analytics.js      # Data visualization & charts
+│   │   │   ├── Charts.js         # Chart components
+│   │   │   ├── Dashboard.js      # Main dashboard layout
+│   │   │   ├── DataManagement.js # Data management features
+│   │   │   ├── DataTable.js      # Equipment data table
+│   │   │   ├── DataUpload.js     # CSV upload component
+│   │   │   ├── FileUpload.js     # File upload handler
+│   │   │   ├── History.js        # Dataset history & reports
+│   │   │   ├── HomePage.js       # Landing page
+│   │   │   ├── Login.js          # Login page
+│   │   │   ├── Overview.js       # Overview component
+│   │   │   ├── Reports.js        # Report generation
+│   │   │   ├── Signup.js         # User registration
+│   │   │   └── TestChart.js      # Chart testing
+│   │   ├── App.js                # Main app component (Basic Auth)
+│   │   ├── App_fixed.css         # Updated styles
+│   │   ├── App.css               # Original styles
+│   │   ├── Dashboard.css         # Dashboard styles
+│   │   └── index.js              # React entry point
+│   ├── .env                      # Environment variables (API URL)
+│   ├── package.json              # Node dependencies
+│   └── package-lock.json         # Locked dependencies
+│
+├── desktop/                      # PyQt5 Desktop Application
+│   ├── main.py                   # Desktop app (Fixed Basic Auth)
+│   ├── main.spec                 # PyInstaller configuration
+│   ├── requirements.txt          # Python dependencies
+│   └── equipment_report_4.pdf    # Sample generated report
+│
+├── screenshots/                  # Application screenshots
+│   ├── desktopapp.png
+│   └── webapp.png
+│
+├── documentation/                # Project documentation
+│   ├── AUTHENTICATION_COMPARISON.md  # Auth fix comparison
+│   ├── DESKTOP_LOGIN_FIX.md          # Desktop login fix details
+│   ├── FIX_SUMMARY.md                # Quick fix summary
+│   ├── TESTING_INSTRUCTIONS.md       # Testing guide
+│   └── DEMO.md                       # Demo information
+│
+├── sample_data.csv               # Sample dataset for testing
+├── sample_equipment_data.csv     # Additional sample data
+├── equipment_report_16.pdf       # Sample PDF report
+│
+├── scripts/                      # Utility scripts
+│   ├── start_backend.bat         # Start Django backend
+│   ├── start_frontend.bat        # Start React frontend
+│   ├── start_desktop.bat         # Start desktop app
+│   ├── test_desktop_auth.py      # Auth testing script
+│   ├── clear_accounts.html       # Account management
+│   ├── debug.html                # Debug utilities
+│   └── test_connection.html      # Connection testing
+│
+├── .gitignore                    # Git ignore rules
+└── README.md                     # Project documentation
 ```
 
 ## ✨ Features
@@ -180,16 +241,32 @@ start_desktop.bat
 
 ## 🏗️ Deployment
 
-### Web App (Render)
-- Frontend: Static Site deployment with build command `npm install && npm run build`
-- Backend: Web Service deployment with `Procfile` and `render.yaml`
-- Both components deployed on Render platform from single GitHub repository
-- Automatic deployment with environment variables for production
+### Frontend (Netlify)
+- **Platform**: Netlify
+- **Build Command**: `npm run build`
+- **Publish Directory**: `frontend/build`
+- **Base Directory**: `frontend`
+- **Environment Variables**:
+  - `REACT_APP_API_URL`: Your Render backend URL (e.g., `https://chemora-backend.onrender.com/api`)
+  - `CI`: `false` (to disable treating warnings as errors)
+- **Auto Deploy**: Connected to GitHub repository for automatic deployments on push
+
+### Backend (Render)
+- **Platform**: Render Web Service
+- **Build Command**: `./build.sh`
+- **Start Command**: `gunicorn equipment_api.wsgi:application`
+- **Configuration**: `Procfile` and `render.yaml`
+- **Auto Deploy**: Connected to GitHub repository
+- **Features**:
+  - Automatic admin user creation on deployment
+  - SQLite database persistence
+  - CORS enabled for Netlify frontend
 
 ### Desktop Distribution
-- Packaged with PyInstaller
-- Single executable file (`main.exe`)
-- No Python installation required for end users
+- **Packaging**: PyInstaller
+- **Output**: Single executable file (`main.exe`)
+- **Distribution**: GitHub Releases
+- **No Installation Required**: Standalone Windows executable
 
 ## 📊 Sample Data Format
 CSV file should contain columns:
