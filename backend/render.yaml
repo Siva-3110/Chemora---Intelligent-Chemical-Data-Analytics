@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: chemora-backend
+    env: python
+    region: oregon
+    buildCommand: "./build.sh"
+    startCommand: "./start.sh"
+    plan: free
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: equipment_api.settings
+      - key: DEBUG
+        value: "False"
+      - key: SECRET_KEY
+        generateValue: true
