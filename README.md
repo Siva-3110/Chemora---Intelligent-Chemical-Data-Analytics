@@ -21,7 +21,7 @@ Users can upload CSV datasets to generate instant analytics, interactive charts,
 ## 🚀 Live Demos
 - **Web App (Netlify)**: https://chemora.netlify.app/
 - **Backend API (Render)**: https://chemora.onrender.com
-- **Desktop App**: Download `main.exe` from [GitHub Releases](https://github.com/Siva-3110/Chemora/tree/master/desktop/dist) 
+- **Desktop App**: Download `main.exe` from [GitHub Releases](https://github.com/Siva-3110/Chemora---Intelligent-Chemical-Data-Analytics/tree/master/desktop/dist) 
 
 
 ## 🔐 Demo Credentials
