@@ -40,16 +40,14 @@ function App() {
 
   const handleLogin = async (credentials) => {
     try {
-      // Only use API authentication
-      const response = await axios.post(`${API_BASE}/login/`, {
-        username: credentials.username,
-        password: credentials.password
-      });
+      // Use Basic Authentication directly
+      const auth = btoa(`${credentials.username}:${credentials.password}`);
+      axios.defaults.headers.common['Authorization'] = `Basic ${auth}`;
       
-      if (response.data.success) {
-        const auth = btoa(`${credentials.username}:${credentials.password}`);
-        axios.defaults.headers.common['Authorization'] = `Basic ${auth}`;
-        
+      // Test authentication by calling datasets endpoint
+      const response = await axios.get(`${API_BASE}/datasets/`);
+      
+      if (response.status === 200) {
         localStorage.setItem('auth', JSON.stringify(credentials));
         setUser({ username: credentials.username });
         setIsAuthenticated(true);
@@ -59,7 +57,10 @@ function App() {
       
       return { success: false, error: 'Invalid credentials' };
     } catch (error) {
-      console.error('Login error:', error);
+      delete axios.defaults.headers.common['Authorization'];
+      if (error.response?.status === 401) {
+        return { success: false, error: 'Invalid username or password' };
+      }
       return { success: false, error: 'Connection failed. Please check if the server is running.' };
     }
   };
