@@ -279,4 +279,4 @@ Pump-2,Pump,98.45,108.30,165.20
 
 ## 📝 Submission Details
 - **Repository**: [GitHub - Chemora](https://github.com/Siva-3110/Chemora---Intelligent-Chemical-Data-Analytics)
-- **Demo Video**: [Demo Video](https://drive.google.com/file/d/1fSfkYz-fNBJme21PgT5aso7gzwQ8E_KE/view?usp=sharing)
+- **Demo Video**: [Demo Video](https://drive.google.com/file/d/1Mqg50Ik7LzH8Q-NUHL5ga86t7UyGSVgD/view?usp=drive_link)
